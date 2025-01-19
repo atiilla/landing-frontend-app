@@ -54,8 +54,8 @@ const blog = defineCollection({
       image: `${process.env.NEXT_PUBLIC_APP_URL}/og?title=${encodeURI(
         document.title
       )}`,
-      slug: `/blog/${document._meta.path}`,
-      slugAsParams: document._meta.path.split("/").join("/"),
+      slug: `/blog/${document._meta.path.replace(/_/g, "-")}`,
+      slugAsParams: document._meta.path.replace(/_/g, "-").split("/").join("/"),
       body: {
         raw: document.content,
         code: body,
