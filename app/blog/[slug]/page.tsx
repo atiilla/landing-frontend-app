@@ -4,6 +4,7 @@ import Markdown from "@hhs/components/custom/mdx";
 import Subtitle from "@hhs/components/custom/subtitle";
 import LandingLayoutView from "@hhs/layouts/landing-layout";
 import Link from "next/link";
+import { Metadata } from "next";
 
 interface BlogPostPageProps {
   params: {
@@ -24,6 +25,40 @@ export async function generateStaticParams(): Promise<BlogPostPageProps["params"
     slug: post.slugAsParams,
   }));
 }
+
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+  const post = await getBlogPostFromParams(params);
+
+  if (!post) {
+    notFound();
+  }
+
+  return {
+    title: post.title,
+    description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      type: "website", 
+      url: `/blog/${params.slug}`,
+      images: [
+        {
+          url: "/assets/hhs-b.avif",
+          width: 1200,
+          height: 630,
+          alt: post.title
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: ["/assets/hhs-b.avif"]
+    },
+  };
+}
+
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = await getBlogPostFromParams(params);

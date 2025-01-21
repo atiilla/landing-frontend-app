@@ -3,6 +3,7 @@ import { allBlogs } from "@hhs/.content-collections/generated";
 import LandingLayoutView from "@hhs/layouts/landing-layout";
 import Link from "next/link";
 import Subtitle from "@hhs/components/custom/subtitle";
+import { Metadata } from "next";
 
 interface TagPageProps {
   params: {
@@ -18,6 +19,34 @@ export async function generateStaticParams(): Promise<TagPageProps["params"][]> 
   return Array.from(tags).map((tag) => ({
     tag: encodeURIComponent(tag),
   }));
+}
+
+export function generateMetadata({ params }: TagPageProps): Metadata {
+  const decodedTag = decodeURIComponent(params.tag);
+  return {
+    title: `${decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1)} posts`,
+    description: `Happy Hacking Space | ${decodedTag} posts`,
+    openGraph: {
+      title: `${decodedTag} posts`,
+      description: `Happy Hacking Space | ${decodedTag} posts`,
+      type: "website",
+      url: `/blog/tag/${params.tag}`,
+      images: [
+        {
+          url: "/assets/hhs-b.avif",
+          width: 1200,
+          height: 630,
+          alt: `Blog Posts tagged with ${decodedTag}`
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image", 
+      title: `${decodedTag} posts`,
+      description: `Happy Hacking Space | ${decodedTag} posts`,
+      images: ["/assets/hhs-b.avif"]
+    },
+  };
 }
 
 export default function TagPage({ params }: TagPageProps) {

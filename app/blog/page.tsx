@@ -2,6 +2,32 @@ import { allBlogs } from "@hhs/.content-collections/generated";
 import LandingLayoutView from "@hhs/layouts/landing-layout";
 import Link from "next/link";
 import Subtitle from "@hhs/components/custom/subtitle";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog Posts",
+  description: "Happy Hacking Space Blog Posts",
+  openGraph: {
+    title: "Blog Posts",
+    description: "Happy Hacking Space Blog Posts",
+    type: "website",
+    url: "/blog",
+    images: [
+      {
+        url: "/assets/hhs-b.avif", 
+        width: 1200,
+        height: 630,
+        alt: "Blog Posts"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog Posts",
+    description: "Happy Hacking Space Blog Posts",
+    images: ["/assets/hhs-b.avif"]
+  }
+};
 
 const BlogPage = () => {
   const sortedPosts = allBlogs.sort(
@@ -51,4 +77,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage; 
+export default BlogPage;
