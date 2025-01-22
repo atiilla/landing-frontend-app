@@ -33,9 +33,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     notFound();
   }
 
-  const ogImage = "/assets/hhs-b.avif";
-  const absoluteOgImage = `${process.env.NEXT_PUBLIC_APP_URL}${ogImage}`;
 
+
+  const ogImage = "/assets/hhs-b.avif";
+  const absoluteOgImage = process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}${ogImage}` : ogImage;
+  const findImage = post.body.code.match(/<img src="([^"]+)"/);
+  const image = findImage ? (findImage[1].startsWith('/') && process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}${findImage[1]}` : findImage[1]) : absoluteOgImage;
+ 
   return {
     title: post.title,
     description: post.summary,
@@ -46,7 +50,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       url: `/blog/${params.slug}`,
       images: [
         {
-          url: absoluteOgImage,
+          url: image,
           width: 1200,
           height: 630,
           alt: post.title
@@ -57,8 +61,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       card: "summary_large_image",
       title: post.title,
       description: post.summary,
-      images: [absoluteOgImage],
-      creator: "@happyhackings" // Replace with your Twitter handle
+      images: [image],
+      creator: "@happyhackings"
     },
   };
 }
@@ -73,7 +77,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  
 
   return (
     <LandingLayoutView>
