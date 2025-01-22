@@ -36,10 +36,15 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 
   const ogImage = "/assets/hhs-b.avif";
-  const absoluteOgImage = process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}${ogImage}` : ogImage;
-  const findImage = post.body.code.match(/<img src="([^"]+)"/);
-  const image = findImage ? (findImage[1].startsWith('/') && process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}${findImage[1]}` : findImage[1]) : absoluteOgImage;
- 
+  const absoluteOgImage = `${process.env.NEXT_PUBLIC_APP_URL}${ogImage}`;
+  const findImage = post.body.code.match(/src:"([^"]+)"/);
+  let image = ""
+  if(findImage){
+    image = findImage[1]
+  }else{
+    image = absoluteOgImage
+  }
+  
   return {
     title: post.title,
     description: post.summary,
