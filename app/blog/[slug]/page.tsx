@@ -33,17 +33,29 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     notFound();
   }
 
+
+
+  const ogImage = "/assets/hhs-b.avif";
+  const absoluteOgImage = `${process.env.NEXT_PUBLIC_APP_URL}${ogImage}`;
+  const findImage = post.body.code.match(/src:"([^"]+)"/);
+  let image = ""
+  if(findImage){
+    image = findImage[1]
+  }else{
+    image = absoluteOgImage
+  }
+  
   return {
     title: post.title,
     description: post.summary,
     openGraph: {
       title: post.title,
       description: post.summary,
-      type: "website", 
+      type: "website",
       url: `/blog/${params.slug}`,
       images: [
         {
-          url: "/assets/hhs-b.avif",
+          url: image,
           width: 1200,
           height: 630,
           alt: post.title
@@ -54,10 +66,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       card: "summary_large_image",
       title: post.title,
       description: post.summary,
-      images: ["/assets/hhs-b.avif"]
+      images: [image],
+      creator: "@happyhackings"
     },
   };
 }
+
+
 
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -66,6 +81,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
+
 
   return (
     <LandingLayoutView>
