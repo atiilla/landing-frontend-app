@@ -25,7 +25,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blog Posts",
     description: "Happy Hacking Space Blog Posts",
-    images: ["/assets/hhs-b.avif"]
+    images: ["/assets/hhs-b.avif"],
+    creator: "@happyhackings"
   }
 };
 

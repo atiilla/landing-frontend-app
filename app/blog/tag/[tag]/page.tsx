@@ -41,10 +41,11 @@ export function generateMetadata({ params }: TagPageProps): Metadata {
       ]
     },
     twitter: {
-      card: "summary_large_image", 
+      card: "summary_large_image",
       title: `${decodedTag} posts`,
       description: `Happy Hacking Space | ${decodedTag} posts`,
-      images: ["/assets/hhs-b.avif"]
+      images: ["/assets/hhs-b.avif"],
+      creator: "@happyhackings"
     },
   };
 }
