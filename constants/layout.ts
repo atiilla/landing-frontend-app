@@ -55,6 +55,10 @@ export const NAV_ITEMS = [
         label: "Branding",
         href: "/brand",
       },
+      {
+        label: "Stickers",
+        href: "/stickers",
+      },
     ],
   },
   {
