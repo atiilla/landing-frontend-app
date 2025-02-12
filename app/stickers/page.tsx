@@ -26,8 +26,6 @@ interface StickerData {
 	scale: number
 }
 
-interface StickersPageProps { }
-
 const STICKERS: StickerData[] = [
 	{
 		src: "/stickers/pixelated.avif",
@@ -66,7 +64,7 @@ const STICKERS: StickerData[] = [
 	}
 ]
 
-export default function StickersPage({ }: StickersPageProps): React.ReactElement {
+const StickersPage: React.FC = () => {
 	const [scope, animate] = useAnimate()
 
 	React.useEffect(() => {
@@ -118,3 +116,5 @@ export default function StickersPage({ }: StickersPageProps): React.ReactElement
 		</LandingLayoutView>
 	)
 }
+
+export default StickersPage;
