@@ -79,8 +79,13 @@ const StickersPage: React.FC = () => {
 				depth={sticker.depth}
 			>
 				<motion.div
-					className="w-32 h-32 hover:scale-105 duration-200 cursor-pointer transition-transform relative"
-					style={{ transform: `scale(${sticker.scale})` }}
+					className="w-16 h-16 sm:w-32 sm:h-32 duration-200 cursor-pointer transition-transform relative"
+					initial={{ scale: sticker.scale }}
+					animate={{ scale: sticker.scale }}
+					whileHover={{
+						scale: sticker.scale * 1.1,
+						transition: { duration: 0.2 }
+					}}
 				>
 					<Image
 						src={sticker.src}
