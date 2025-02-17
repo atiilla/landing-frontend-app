@@ -82,7 +82,7 @@ const EventsPage: React.FC = () => {
           </TabsTrigger>
           <Button
             value="subscribe"
-            className="bg-primary text-primary-foreground shadow hover:bg-primary/90 p-2 rounded-md"
+            className="bg-primary text-primary-foreground shadow hover:bg-primary/90 p-4 ml-1 -mr-1 rounded-md"
             onClick={handleSubscribe}
           >
             Subscribe

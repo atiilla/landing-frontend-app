@@ -38,7 +38,3 @@ next-env.d.ts
 # content collections 
 .content-collections
 
-# package-lock.json
-package-lock.json
-
-bun.lockb
