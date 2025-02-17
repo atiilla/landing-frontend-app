@@ -11,6 +11,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@hhs/components/shadcn/tabs";
+import SubscribeDialog from "@hhs/components/custom/Subscribe-Dialog";
 
 const EventsPage: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState<"upcoming" | "past">(
@@ -25,6 +26,18 @@ const EventsPage: React.FC = () => {
   });
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
+  const [showSubscribeDialog, setShowSubscribeDialog] = React.useState<boolean>(false);
+
+  const handleSubscribe = () => {
+    setShowSubscribeDialog(true);
+  };
+
+  const subscribeDialog = (
+    <SubscribeDialog
+      open={showSubscribeDialog}
+      onOpenChange={setShowSubscribeDialog}
+    />
+  );
 
   React.useEffect(() => {
     getAllEvents(activeTab, currentPage).then((data: EventsProps) => {
@@ -56,7 +69,7 @@ const EventsPage: React.FC = () => {
               setCurrentPage(1);
             }}
           >
-            Upcoming Events
+            Upcoming
           </TabsTrigger>
           <TabsTrigger
             value="past"
@@ -65,8 +78,15 @@ const EventsPage: React.FC = () => {
               setCurrentPage(1);
             }}
           >
-            Past Events
+            Past
           </TabsTrigger>
+          <Button
+            value="subscribe"
+            className="bg-primary text-primary-foreground shadow hover:bg-primary/90 p-4 ml-1 -mr-1 rounded-md"
+            onClick={handleSubscribe}
+          >
+            Subscribe
+          </Button>
         </TabsList>
         <TabsContent value="upcoming">
           {events.upcoming.length > 0 ? (
@@ -103,7 +123,7 @@ const EventsPage: React.FC = () => {
           ))}
         </TabsContent>
       </Tabs>
-      
+      {subscribeDialog}
       {totalPages > 1 && (
         <div className="flex justify-between mt-4">
           <Button
